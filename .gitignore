@@ -1,0 +1,5 @@
+*.out
+*.test.*
+*.log.*
+etc
+web-service*
