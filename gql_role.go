@@ -6,6 +6,7 @@ import (
   "github.com/SonicRoshan/straf"
 
   "github.com/Lunkov/lib-arc"
+  "github.com/Lunkov/lib-gql"
 )
 
 func RoleGQL(s *arc.Space) {
@@ -14,7 +15,7 @@ func RoleGQL(s *arc.Space) {
     glog.Errorf("ERR: RoleGQL: %s", err)
   }
   
-  AppendFields2GraphQL("role", &graphql.Field{
+  gql.AppendQuery("role", &graphql.Field{
 			Type: RoleType,
       Args: graphql.FieldConfigArgument{
                 "code": &graphql.ArgumentConfig{
@@ -28,7 +29,7 @@ func RoleGQL(s *arc.Space) {
 			},
 		})
     
-	AppendFields2GraphQL("roles", &graphql.Field{
+	gql.AppendQuery("roles", &graphql.Field{
 			Type: graphql.NewList(RoleType),
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				return s.Roles.GetList(), nil

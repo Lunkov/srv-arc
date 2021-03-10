@@ -6,6 +6,7 @@ import (
   "github.com/SonicRoshan/straf"
 
   "github.com/Lunkov/lib-arc"
+  "github.com/Lunkov/lib-gql"
 )
 
 func ServiceGQL(s *arc.Space) {
@@ -14,7 +15,7 @@ func ServiceGQL(s *arc.Space) {
     glog.Errorf("ERR: ServiceGQL: %s", err)
   }
 
-  AppendFields2GraphQL("service", &graphql.Field{
+  gql.AppendQuery("service", &graphql.Field{
 			Type: ServiceType,
       Args: graphql.FieldConfigArgument{
                 "code": &graphql.ArgumentConfig{
@@ -28,7 +29,7 @@ func ServiceGQL(s *arc.Space) {
 			},
 		})
     
-	AppendFields2GraphQL("services", &graphql.Field{
+	gql.AppendQuery("services", &graphql.Field{
 			Type: graphql.NewList(ServiceType),
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				return s.Services.GetList(), nil

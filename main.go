@@ -10,6 +10,7 @@ import (
   "github.com/golang/glog"
   
   "github.com/Lunkov/lib-arc"
+  "github.com/Lunkov/lib-gql"
 )
 
 func main() {
@@ -26,10 +27,9 @@ func main() {
   
   router := mux.NewRouter()
   
-  schemaGQL, errQL := graphql.NewSchema(defineSchema())
+  schemaGQL, errQL := graphql.NewSchema(gql.GetSchema())
 	if errQL != nil {
 		glog.Errorf("Error when creating the graphQL schema: %v", errQL)
-    glog.Errorf("Error when creating the graphQL schema: %v", fieldsGQL)
     return
 	}
 

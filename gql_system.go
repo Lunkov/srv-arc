@@ -6,6 +6,7 @@ import (
   "github.com/SonicRoshan/straf"
 
   "github.com/Lunkov/lib-arc"
+  "github.com/Lunkov/lib-gql"
 )
 
 func SystemGQL(s *arc.Space) {
@@ -14,7 +15,7 @@ func SystemGQL(s *arc.Space) {
     glog.Errorf("ERR: SystemGQL: %s", err)
   }
 
-  AppendFields2GraphQL("system", &graphql.Field{
+  gql.AppendQuery("system", &graphql.Field{
 			Type: SystemType,
       Args: graphql.FieldConfigArgument{
                 "code": &graphql.ArgumentConfig{
@@ -28,7 +29,7 @@ func SystemGQL(s *arc.Space) {
 			},
 		})
     
-	AppendFields2GraphQL("systems", &graphql.Field{
+	gql.AppendQuery("systems", &graphql.Field{
 			Type: graphql.NewList(SystemType),
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				return s.Services.GetList(), nil

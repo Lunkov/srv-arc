@@ -6,6 +6,7 @@ import (
   "github.com/SonicRoshan/straf"
 
   "github.com/Lunkov/lib-arc"
+  "github.com/Lunkov/lib-gql"
 )
 
 func StageGQL(s *arc.Space) {
@@ -14,7 +15,7 @@ func StageGQL(s *arc.Space) {
     glog.Errorf("ERR: StageGQL: %s", err)
   }
 
-  AppendFields2GraphQL("stage", &graphql.Field{
+  gql.AppendQuery("stage", &graphql.Field{
 			Type: StageType,
       Args: graphql.FieldConfigArgument{
                 "code": &graphql.ArgumentConfig{
@@ -28,7 +29,7 @@ func StageGQL(s *arc.Space) {
 			},
 		})
     
-	AppendFields2GraphQL("stages", &graphql.Field{
+	gql.AppendQuery("stages", &graphql.Field{
 			Type: graphql.NewList(StageType),
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				return s.Stages.GetList(), nil

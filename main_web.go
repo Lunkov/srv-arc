@@ -3,6 +3,8 @@ package main
 import (
   "net/http"
   "github.com/golang/glog"
+  
+  "github.com/Lunkov/lib-gql"
 )
 
 func webGraphQL(w http.ResponseWriter, r *http.Request)  {
@@ -13,6 +15,6 @@ func webGraphQL(w http.ResponseWriter, r *http.Request)  {
   }
        
   query_str := keys[0]  
-  w.Write(funcGraphQL(query_str))
+  w.Write(gql.Query(query_str))
 }
 
